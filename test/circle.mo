@@ -4,4 +4,5 @@ import Debug "mo:base/Debug";
 
 let canvas = SVG.new(500, 500, []);
 canvas.cicle(250, 250, 100, []);
+canvas.text(250, 250, "Hello, SVG", ["text-anchor:middle;font-size:30px;fill:white"]);
 Debug.print(canvas.end());
