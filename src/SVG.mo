@@ -55,8 +55,12 @@ module {
         };
 
         // Circle centered at (x, y) with radius r, with optional style.
-        public func cicle(x : Int, y : Int, r : Int, s : [Text]) {
-            svg #= "<circle cx=\"" # Int.toText(x) # "\" cy=\"" # Int.toText(y) # "\" r=\"" # Int.toText(y) # "\"" # endStyle(s, emptyClose);
+        public func circle(x : Int, y : Int, r : Int, s : [Text]) {
+            svg #= "<circle cx=\"" # Int.toText(x) # "\" cy=\"" # Int.toText(y) # "\" r=\"" # Int.toText(y) # "\" " # endStyle(s, emptyClose);
+        };
+
+        public func title(t : Text) {
+            svg #= "<title>" # t # "</title>";
         };
 
         // Text places the specified text, t at x,y according to the style specified in s.
@@ -64,6 +68,37 @@ module {
             svg #= "<text " # Util.location(x, y) # " " # endStyle(s, ">");
             // TODO: escaping of t?
             svg #= t # "</text>\n";
+        };
+
+        // Defines a marker.
+        public func marker(id : Text, x : Int, y : Int, w : Int, h : Int, s : [Text]) {
+            svg #= "<marker id=\"" # id # "\" refX=\"" # Int.toText(x) # "\" refY=\"" # Int.toText(x) # "\"";
+            svg #= " markerWidth=\"" # Int.toText(w) # "\" markerHeight=\"" # Int.toText(h) # "\" " # endStyle(s, ">\n");
+        };
+
+        // Ends a marker.
+        public func markerEnd() {
+            svg #= "</marker>";
+        };
+
+        // Draws connected lines between coordinates.
+        public func polyline(xs : [Int], ys : [Int], s : [Text]) {
+            pp(xs, ys, "<polyline points=\"");
+            svg #= "\" " # endStyle(s, emptyClose);
+        };
+
+        private func pp(xs : [Int], ys : [Int], tag : Text) {
+            svg #= tag;
+            if (xs.size() != ys.size()) {
+                svg #= " ";
+                return;
+            };
+            for (i in xs.keys()) {
+                svg #= Util.coordinate(xs[i], ys[i]);
+                if (i != xs.size()) {
+                    svg #= " ";
+                };
+            };
         };
 
         // Def begins a defintion block.
@@ -152,6 +187,11 @@ module {
         };
 
         public module Util {
+            // Returns a coordinate string.
+            public func coordinate(x : Int, y : Int) : Text {
+                Int.toText(x) # "," # Int.toText(y);
+            };
+
             // Returns a group element.
             public func group(tag : Text, v : Text) : Text {
                 "<g " # tag # "=\"" # v # "\">" 

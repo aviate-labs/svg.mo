@@ -3,6 +3,6 @@
 <svg width="500" height="500"
      xmlns="http://www.w3.org/2000/svg"
      xmlns:xlink="http://www.w3.org/1999/xlink">
-<circle cx="250" cy="250" r="250"/>
+<circle cx="250" cy="250" r="250" />
 <text x="250" y="250" style="text-anchor:middle;font-size:30px;fill:white">Hello, SVG</text>
 </svg>
