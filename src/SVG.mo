@@ -190,7 +190,7 @@ module {
             null;
         };
 
-        public module Util {
+        private module Util {
             // Returns a coordinate string.
             public func coordinate(x : Int, y : Int) : Text {
                 Int.toText(x) # "," # Int.toText(y);
@@ -217,7 +217,7 @@ module {
             };
         };
 
-        public module Translate {
+        private module Translate {
             // Returns the rotate string for the transform.
             public func rotate(f : Float) : Text {
                 "rotate(" # Float.toText(f) # ")";
