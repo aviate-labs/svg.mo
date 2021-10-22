@@ -146,6 +146,10 @@ module {
             e;
         };
 
+        public func image(x : Int, y : Int, w : Int, h : Int, link : Text, s : [Text]) {
+            svg #= "<image " # Util.dim(x, y, w, h) # " " # Util.href(link) # " " # endStyle(s, emptyClose);
+        };
+
         // Checks whether l is a script reference.
         private func isLink(l : Text) : Bool {
             Text.startsWith(l, #text("http://")) or Text.startsWith(l, #char('#')) or
@@ -190,6 +194,11 @@ module {
             // Returns a coordinate string.
             public func coordinate(x : Int, y : Int) : Text {
                 Int.toText(x) # "," # Int.toText(y);
+            };
+
+            // Returns a dimension string.
+            public func dim(x : Int, y : Int, w : Int, h : Int) : Text {
+                "x=\"" # Int.toText(x) # "\" y=\"" # Int.toText(y) # "\" width=\"" # Int.toText(w) # "\" height=\"" # Int.toText(h) # "\"";
             };
 
             // Returns a group element.
