@@ -217,7 +217,7 @@ module {
             };
         };
 
-        private module Translate {
+        public module Transforms {
             // Returns the rotate string for the transform.
             public func rotate(f : Float) : Text {
                 "rotate(" # Float.toText(f) # ")";
