@@ -101,8 +101,19 @@ module {
             };
         };
 
+        // Rect starting at (x, y) upper the left-hand corner, with size width w and height h, with optional style.
         public func rect(x : Int, y : Int, w : Int, h : Int, s : [Text]) {
             svg #= "<rect " # Util.dimension(x, y, w, h) # " " # endStyle(s, emptyClose);
+        };
+
+        // Rect centered at (x, y) with size w:h, with optional style.
+        public func rectCenter(x : Int, y : Int, w : Int, h : Int, s : [Text]) {
+            rect(x - (w/2), y - (h/2), w, h, s);
+        };
+
+        // Rect with rounded corners starting at (x, y) upper the left-hand corner, with size width w and height h, with optional style.
+        public func rectRound(x : Int, y : Int, w : Int, h : Int, rx : Int, ry : Int, s : [Text]) {
+            svg #= "<rect " # Util.dimension(x, y, w, h) # " rx=\"" # Int.toText(rx) # "\" ry=\"" # Int.toText(ry) # "\" " # endStyle(s, emptyClose);
         };
 
         // Def begins a defintion block.

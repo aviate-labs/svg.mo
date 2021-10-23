@@ -25,7 +25,7 @@ let svg = canvas.end();
 - [ ] ellipse
 - [ ] polygon
 - [x] polyline
-- [ ] rect (including roundrects)
+- [x] rect (including roundrects)
 - [ ] line
 - [x] text
 
