@@ -46,8 +46,8 @@ let svg = canvas.end();
 - [x] translate
 - [x] rotate
 - [x] scale
-- [ ] skewX
-- [ ] skewY
+- [x] skewX
+- [x] skewY
 
 ### Animation
 

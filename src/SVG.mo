@@ -101,6 +101,10 @@ module {
             };
         };
 
+        public func rect(x : Int, y : Int, w : Int, h : Int, s : [Text]) {
+            svg #= "<rect " # Util.dimension(x, y, w, h) # " " # endStyle(s, emptyClose);
+        };
+
         // Def begins a defintion block.
         public func def() {
             svg #= "<defs>" # "\n";
@@ -147,7 +151,7 @@ module {
         };
 
         public func image(x : Int, y : Int, w : Int, h : Int, link : Text, s : [Text]) {
-            svg #= "<image " # Util.dim(x, y, w, h) # " " # Util.href(link) # " " # endStyle(s, emptyClose);
+            svg #= "<image " # Util.dimension(x, y, w, h) # " " # Util.href(link) # " " # endStyle(s, emptyClose);
         };
 
         // Checks whether l is a script reference.
@@ -197,7 +201,7 @@ module {
             };
 
             // Returns a dimension string.
-            public func dim(x : Int, y : Int, w : Int, h : Int) : Text {
+            public func dimension(x : Int, y : Int, w : Int, h : Int) : Text {
                 "x=\"" # Int.toText(x) # "\" y=\"" # Int.toText(y) # "\" width=\"" # Int.toText(w) # "\" height=\"" # Int.toText(h) # "\"";
             };
 
@@ -216,22 +220,42 @@ module {
                 "x=\"" # Int.toText(x) # "\" y=\"" # Int.toText(y) # "\"";
             };
         };
+    };
 
-        public module Transforms {
-            // Returns the rotate string for the transform.
-            public func rotate(f : Float) : Text {
-                "rotate(" # Float.toText(f) # ")";
-            };
+    public module Transforms {
+        // Returns the rotate string for the transform.
+        public func rotate(f : Float) : Text {
+            "rotate(" # Float.toText(f) # ")";
+        };
 
-            // Return the scale string for the transform.
-            public func scale(f : Float) : Text {
-                "scale(" # Float.toText(f) # ")";
-            };
+        // Returns the scale string for the transform.
+        public func scale(f : Float) : Text {
+            "scale(" # Float.toText(f) # ")";
+        };
 
-            // Returns the translate string for the transform.
-            public func translate(x : Float, y : Float) : Text {
-                "translate(" # Float.toText(x) # "," # Float.toText(x) # ")";
-            };
+        // Returns the xy scale string for the transform.
+        public func scaleXY(x : Float, y : Float) : Text {
+            "scale(" # Float.toText(x) # "," # Float.toText(y) # ")";
+        };
+
+        // Returns the x skew string for the transform.
+        public func skewX(f : Float) : Text {
+            "skewX(" # Float.toText(f) # ")";
+        };
+
+        // Returns the y skew string for the transform.
+        public func skewY(f : Float) : Text {
+            "skewY(" # Float.toText(f) # ")";
+        };
+
+        // Returns the xy skew string for the transform.
+        public func skewXY(x : Float, y : Float) : Text {
+            skewX(x) # " " # skewY(y);
+        };
+
+        // Returns the translate string for the transform.
+        public func translate(x : Float, y : Float) : Text {
+            "translate(" # Float.toText(x) # "," # Float.toText(x) # ")";
         };
     };
 };
