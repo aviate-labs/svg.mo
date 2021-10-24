@@ -5,7 +5,7 @@
      xmlns:xlink="http://www.w3.org/1999/xlink">
 <title>Marker</title><defs>
 <marker id="dot" refX="5" refY="5" markerWidth="8" markerHeight="8" >
-<circle cx="5" cy="5" r="5" style="fill:black"/>
+<circle cx="5" cy="5" r="3" style="fill:black"/>
 </marker></defs>
 <polyline points="100,100 250,250 100,400 " fill="none" stroke="red" marker-start="url(#dot)"/>
 </svg>

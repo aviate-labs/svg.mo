@@ -56,7 +56,12 @@ module {
 
         // Circle centered at (x, y) with radius r, with optional style.
         public func circle(x : Int, y : Int, r : Int, s : [Text]) {
-            svg #= "<circle cx=\"" # Int.toText(x) # "\" cy=\"" # Int.toText(y) # "\" r=\"" # Int.toText(y) # "\" " # endStyle(s, emptyClose);
+            svg #= "<circle cx=\"" # Int.toText(x) # "\" cy=\"" # Int.toText(y) # "\" r=\"" # Int.toText(r) # "\" " # endStyle(s, emptyClose);
+        };
+
+        // Ellipse centered at (x, y) with radii w and h, with optional style.
+        public func ellipse(x : Int, y : Int, w : Int, h : Int, s : [Text]) {
+            svg #= "<ellipse cx=\"" # Int.toText(x) # "\" cy=\"" # Int.toText(y) # "\" rx=\"" # Int.toText(w) # "\" ry=\"" # Int.toText(h) # "\" " # endStyle(s, emptyClose);
         };
 
         public func title(t : Text) {
@@ -233,6 +238,11 @@ module {
         };
     };
 
+    /* Transform Example:
+     *  canvas.groupTransform(SVG.Transforms.skewX(10));
+     *  canvas.rect(0, 25, 150, 150, []);
+     *  canvas.groupEnd();
+     */
     public module Transforms {
         // Returns the rotate string for the transform.
         public func rotate(f : Float) : Text {
@@ -267,6 +277,16 @@ module {
         // Returns the translate string for the transform.
         public func translate(x : Float, y : Float) : Text {
             "translate(" # Float.toText(x) # "," # Float.toText(x) # ")";
+        };
+
+        // Returns the translate and rotate strings for the transform.
+        public func translateRotate(x : Float, y : Float, r : Float) : Text {
+            translate(x, y) # " " # rotate(r);
+        };
+
+        // Returns the rotate and translate strings for the transform.
+        public func rotateTranslate(r : Float, x : Float, y : Float) : Text {
+            rotate(r) # " " # translate(x, y);
         };
     };
 };

@@ -22,7 +22,7 @@ let svg = canvas.end();
 ### Shapes, Lines, Text
 
 - [x] circle
-- [ ] ellipse
+- [x] ellipse
 - [ ] polygon
 - [x] polyline
 - [x] rect (including roundrects)
