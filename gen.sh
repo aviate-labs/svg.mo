@@ -8,6 +8,6 @@ for i in examples/*.mo ; do
     base=$(basename $i .mo)
     $(dfx cache show)/moc --package base $(dfx cache show)/base -r $i > examples/$base.svg
 
-    echo "# $base\n\n![$base](./examples/$base.svg)" >> EXAMPLES.md
+    echo "# $base\n\n![$base](./examples/$base.svg)\n" >> EXAMPLES.md
     echo "View the code [here](./$i)\n" >> EXAMPLES.md
 done
