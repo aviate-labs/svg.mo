@@ -91,6 +91,11 @@ module {
             svg #= "</marker>";
         };
 
+        // Draws an arbitrary path, the caller is responsible for structuring the path data.
+        public func path(d : Text, s : [Text]) {
+            svg #= "<path d=\"" # d # "\" " # endStyle(s, emptyClose);
+        };
+
         // Draws a straight line between two points.
         public func line(x1 : Int, y1 : Int, x2 : Int, y2 : Int, s : [Text]) {
              svg #= "<line x1=\"" # Int.toText(x1) # "\" y1=\"" # Int.toText(y1) # "\" x2=\"" # Int.toText(x2) # "\" y2=\"" # Int.toText(y2) # "\" " # endStyle(s, emptyClose);

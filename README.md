@@ -25,6 +25,8 @@ let svg = canvas.end();
 
 More examples can be found in the [examples directory](./examples).
 
+![arcs01](./examples/path_arcs.svg)
+
 ## Supported SVG Elements and Functions
 
 ### Shapes, Lines, Text
@@ -39,9 +41,9 @@ More examples can be found in the [examples directory](./examples).
 
 ### Paths
 
-- [ ] general
-- [ ] arc
-- [ ] cubic and quadratic bezier paths
+- [x] general
+- [x] arc
+- [x] cubic and quadratic bezier paths
 
 ### Image and Gradients
 
