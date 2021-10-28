@@ -23,6 +23,8 @@ let svg = canvas.end();
 
 ![cicle01](./test/basic_circle.svg)
 
+More examples can be found in the [examples directory](./examples).
+
 ## Supported SVG Elements and Functions
 
 ### Shapes, Lines, Text

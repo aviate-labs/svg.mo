@@ -7,7 +7,7 @@ let height : Int = 400;
 let canvas = SVG.SVG();
 
 canvas.startView(width, height, 0, 0, width, height);
-canvas.desc("Example polyline01 - increasingly larger bars.");
+canvas.desc("Example polygon01 - star and hexagon.");
 
 canvas.polygon(
     [350, 379, 469, 397, 423, 350, 277, 303, 231, 321],
