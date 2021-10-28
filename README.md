@@ -21,7 +21,7 @@ canvas.circle(
 let svg = canvas.end();
 ```
 
-![cicle01](./test/basic_circle.svg)
+![circle01](./examples/basic_circle.svg)
 
 More examples can be found in the [examples directory](./examples).
 
