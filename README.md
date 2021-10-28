@@ -7,15 +7,21 @@ This Motoko library generates SVGs (as defined by the [Scalable Vector Graphics 
 ```motoko
 import SVG "mo:svg/SVG";
 
-let width  : Int = 500;
-let height : Int = 500;
-let canvas = SVG.SVG();
+let width  : Int = 1200;
+let height : Int = 400;
 
+let canvas = SVG.SVG();
 canvas.start(width, height, []);
-canvas.circle(width/2, height/2, 100, []);
-canvas.text(width/2, height/2, "Hello, SVG", ["text-anchor:middle;font-size:30px;fill:white"]);
+
+canvas.circle(
+    600, 200, 100,
+    ["fill=\"red\"", "stroke=\"blue\"", "stroke-width=\"10\""],
+);
+
 let svg = canvas.end();
 ```
+
+![cicle01](./test/basic_circle.svg)
 
 ## Supported SVG Elements and Functions
 
@@ -23,10 +29,10 @@ let svg = canvas.end();
 
 - [x] circle
 - [x] ellipse
-- [ ] polygon
+- [x] polygon
 - [x] polyline
 - [x] rect (including roundrects)
-- [ ] line
+- [x] line
 - [x] text
 
 ### Paths
