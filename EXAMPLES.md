@@ -42,6 +42,18 @@ View the code [here](./examples/basic_rect.mo)
 
 View the code [here](./examples/basic_rect_2.mo)
 
+# gradient_linear
+
+![gradient_linear](./examples/gradient_linear.svg)
+
+View the code [here](./examples/gradient_linear.mo)
+
+# gradient_radial
+
+![gradient_radial](./examples/gradient_radial.svg)
+
+View the code [here](./examples/gradient_radial.mo)
+
 # image
 
 ![image](./examples/image.svg)

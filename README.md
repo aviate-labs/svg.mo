@@ -46,8 +46,9 @@ More examples can be found [here](./EXAMPLES.md).
 ### Image and Gradients
 
 - [x] image
-- [ ] linearGradient
-- [ ] radialGradient
+- [x] linearGradient
+- [x] radialGradient
+- [ ] pattern
 
 ### Transforms
 
@@ -67,8 +68,8 @@ More examples can be found [here](./EXAMPLES.md).
 
 ### Metadata Elements
 
-- [ ] desc
+- [x] desc
 - [x] defs
-- [ ] g (style, transform, id)
+- [x] g (style, transform, id)
 - [x] marker
-- [ ] mask, pattern, title, (a)ddress, link, script, use, ...
+- [ ] ...

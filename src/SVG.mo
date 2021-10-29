@@ -1,8 +1,33 @@
 import Float "mo:base/Float";
 import Int "mo:base/Int";
+import Nat8 "mo:base/Nat8";
 import Text "mo:base/Text";
 
 module {
+    public type LinearGradientCoordinateSystem = {
+        #objectBoundingBox : (x1 : Nat8, y1 : Nat8, x2 : Nat8, y2 : Nat8);
+        #userSpaceOnUse    : (x1 : Int, y1 : Int, x2 : Int, y2 : Int);
+    };
+
+    // Linear gradient default: 0%, 0%, 100%, 0%.
+    public let LinearGradientDefault : LinearGradientCoordinateSystem = #objectBoundingBox(0, 0, 100, 0);
+
+    public type RadialGradientCoordinateSystem = {
+        #objectBoundingBox : (cx : Nat8, cy : Nat8, r : Nat8, fx : Nat8, fy : Nat8);
+        #userSpaceOnUse    : (cx : Int, cy : Int, r : Int, fx : Int, fy : Int);
+    };
+
+    // Radial gradient default: 50%, 50%, 50%, fx, fy
+    public func RadialGradientDefault(fx : Nat8, fy : Nat8) : RadialGradientCoordinateSystem {
+        #objectBoundingBox(50 : Nat8, 50 : Nat8, 50 : Nat8, fx, fy);
+    };
+
+    public type OffsetColor = {
+        offset  : Nat8;
+        color   : Text;
+        opacity : Float;
+    };
+
     private let emptyClose = "/>\n";
 
     public class SVG() {
@@ -41,7 +66,7 @@ module {
                 width,
                 height,
                 ["viewBox=\"" # Int.toText(minX) # " " # Int.toText(minY) # " " #
-                                Int.toText(vw)   # " " # Int.toText(vh)   # " " # "\""],
+                                Int.toText(vw)   # " " # Int.toText(vh)   # "\""],
             );
         };
 
@@ -143,17 +168,21 @@ module {
         };
 
         // Def begins a defintion block.
-        public func def() {
+        public func defs() {
             svg #= "<defs>" # "\n";
         };
 
         // Ends a defintion block.
-        public func defEnd() {
+        public func defsEnd() {
             svg #= "</defs>" # "\n";
         };
 
         // Begins a group.
         public func group(s : [Text]) {
+            if (s.size() == 0) {
+                svg #= "<g>\n";
+                return;
+            };
             svg #= "<g " # endStyle(s, ">\n");
         };
 
@@ -194,6 +223,43 @@ module {
 
         public func image(x : Int, y : Int, w : Int, h : Int, link : Text, s : [Text]) {
             svg #= "<image " # Util.dimension(x, y, w, h) # " " # Util.href(link) # " " # endStyle(s, emptyClose);
+        };
+
+        // Constructs a linear color gradient identified by id, along the vector defined by (x1, y1), and (x2, y2).
+        // Coordinates are expressed as percentages.
+        public func linearGradient(id : Text, coordinates : LinearGradientCoordinateSystem, stopColors : [OffsetColor]) {
+            switch (coordinates) {
+                case (#objectBoundingBox(x1, y1, x2, y2)) {
+                    svg #= "<linearGradient id=\"" # id # "\" x1=\"" # Nat8.toText(x1) # "%\" y1=\"" # Nat8.toText(y1) # "%\" x2=\"" # Nat8.toText(x2) # "%\" y2=\"" # Nat8.toText(y2) # "%\">\n";
+                };
+                case (#userSpaceOnUse(x1, y1, x2, y2)) {
+                    svg #= "<linearGradient id=\"" # id # "\" gradientUnits=\"userSpaceOnUse\" x1=\"" # Int.toText(x1) # "\" y1=\"" # Int.toText(y1) # "\" x2=\"" # Int.toText(x2) # "\" y2=\"" # Int.toText(y2) # "\">\n";
+                };
+            };
+            stopColor(stopColors);
+            svg #= "</linearGradient>\n";
+        };
+
+        // Constructs a radial color gradient identified by id, centered at (cx,cy), with a radius of r.
+        // (fx, fy) define the location of the focal point of the light source.
+        // Coordinates are expressed as percentages.
+        public func radialGradient(id : Text, coordinates : RadialGradientCoordinateSystem, stopColors : [OffsetColor]) {
+            switch (coordinates) {
+                case (#objectBoundingBox(cx, cy, r, fx, fy)) {
+                    svg #= "<radialGradient id=\"" # id # "\" cx=\"" # Nat8.toText(cx) # "%\" cy=\"" # Nat8.toText(cy) # "%\" r=\"" # Nat8.toText(r) # "%\" fx=\"" # Nat8.toText(fx) # "%\" fy=\"" # Nat8.toText(fy) # "%\">\n";
+                };
+                case (#userSpaceOnUse(cx, cy, r, fx, fy)) {
+                    svg #= "<radialGradient id=\"" # id # "\" gradientUnits=\"userSpaceOnUse\" cx=\"" # Int.toText(cx) # "\" cy=\"" # Int.toText(cy) # "\" r=\"" # Int.toText(r) # "\" fx=\"" # Int.toText(fx) # "\" fy=\"" # Int.toText(fy) # "\">\n";
+                };
+            };
+            stopColor(stopColors);
+            svg #= "</radialGradient>\n";
+        };
+
+        private func stopColor(stopColors : [OffsetColor]) {
+            for (c in stopColors.vals()) {
+                svg #= "<stop offset=\"" # Nat8.toText(c.offset) # "%\" stop-color=\"" # c.color # "\" stop-opacity=\"" # Float.toText(c.opacity) # "\"/>\n";
+            };
         };
 
         // Checks whether l is a script reference.
