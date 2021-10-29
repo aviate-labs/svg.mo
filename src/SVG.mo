@@ -82,12 +82,12 @@ module {
 
         // Circle centered at (x, y) with radius r, with optional style.
         public func circle(x : Int, y : Int, r : Int, s : [Text]) {
-            svg #= "<circle cx=\"" # Int.toText(x) # "\" cy=\"" # Int.toText(y) # "\" r=\"" # Int.toText(r) # "\" " # endStyle(s, emptyClose);
+            svg #= "<circle cx=\"" # Int.toText(x) # "\" cy=\"" # Int.toText(y) # "\" r=\"" # Int.toText(r) # "\"" # endStyle(s, emptyClose);
         };
 
         // Ellipse centered at (x, y) with radii w and h, with optional style.
         public func ellipse(x : Int, y : Int, w : Int, h : Int, s : [Text]) {
-            svg #= "<ellipse cx=\"" # Int.toText(x) # "\" cy=\"" # Int.toText(y) # "\" rx=\"" # Int.toText(w) # "\" ry=\"" # Int.toText(h) # "\" " # endStyle(s, emptyClose);
+            svg #= "<ellipse cx=\"" # Int.toText(x) # "\" cy=\"" # Int.toText(y) # "\" rx=\"" # Int.toText(w) # "\" ry=\"" # Int.toText(h) # "\"" # endStyle(s, emptyClose);
         };
 
         public func title(t : Text) {
@@ -100,7 +100,7 @@ module {
 
         // Text places the specified text, t at x,y according to the style specified in s.
         public func text(x : Int, y : Int, t : Text, s : [Text]) {
-            svg #= "<text " # Util.location(x, y) # " " # endStyle(s, ">");
+            svg #= "<text " # Util.location(x, y) # "" # endStyle(s, ">");
             // TODO: escaping of t?
             svg #= t # "</text>\n";
         };
@@ -108,7 +108,7 @@ module {
         // Defines a marker.
         public func marker(id : Text, x : Int, y : Int, w : Int, h : Int, s : [Text]) {
             svg #= "<marker id=\"" # id # "\" refX=\"" # Int.toText(x) # "\" refY=\"" # Int.toText(x) # "\"";
-            svg #= " markerWidth=\"" # Int.toText(w) # "\" markerHeight=\"" # Int.toText(h) # "\" " # endStyle(s, ">\n");
+            svg #= " markerWidth=\"" # Int.toText(w) # "\" markerHeight=\"" # Int.toText(h) # "\"" # endStyle(s, ">\n");
         };
 
         // Ends a marker.
@@ -118,18 +118,18 @@ module {
 
         // Draws an arbitrary path, the caller is responsible for structuring the path data.
         public func path(d : Text, s : [Text]) {
-            svg #= "<path d=\"" # d # "\" " # endStyle(s, emptyClose);
+            svg #= "<path d=\"" # d # "\"" # endStyle(s, emptyClose);
         };
 
         // Draws a straight line between two points.
         public func line(x1 : Int, y1 : Int, x2 : Int, y2 : Int, s : [Text]) {
-             svg #= "<line x1=\"" # Int.toText(x1) # "\" y1=\"" # Int.toText(y1) # "\" x2=\"" # Int.toText(x2) # "\" y2=\"" # Int.toText(y2) # "\" " # endStyle(s, emptyClose);
+             svg #= "<line x1=\"" # Int.toText(x1) # "\" y1=\"" # Int.toText(y1) # "\" x2=\"" # Int.toText(x2) # "\" y2=\"" # Int.toText(y2) # "\"" # endStyle(s, emptyClose);
         };
 
         // Draws connected lines between coordinates.
         public func polyline(xs : [Int], ys : [Int], s : [Text]) {
             pp(xs, ys, "<polyline points=\"");
-            svg #= "\" " # endStyle(s, emptyClose);
+            svg #= "\"" # endStyle(s, emptyClose);
         };
 
         private func pp(xs : [Int], ys : [Int], tag : Text) {
@@ -149,12 +149,12 @@ module {
         // Draws connected polygon between coordinates.
         public func polygon(xs : [Int], ys : [Int], s : [Text]) {
             pp(xs, ys, "<polygon points=\"");
-            svg #= "\" " # endStyle(s, emptyClose);
+            svg #= "\"" # endStyle(s, emptyClose);
         };
 
         // Rect starting at (x, y) upper the left-hand corner, with size width w and height h, with optional style.
         public func rect(x : Int, y : Int, w : Int, h : Int, s : [Text]) {
-            svg #= "<rect " # Util.dimension(x, y, w, h) # " " # endStyle(s, emptyClose);
+            svg #= "<rect " # Util.dimension(x, y, w, h) # "" # endStyle(s, emptyClose);
         };
 
         // Rect centered at (x, y) with size w:h, with optional style.
@@ -164,7 +164,7 @@ module {
 
         // Rect with rounded corners starting at (x, y) upper the left-hand corner, with size width w and height h, with optional style.
         public func rectRound(x : Int, y : Int, w : Int, h : Int, rx : Int, ry : Int, s : [Text]) {
-            svg #= "<rect " # Util.dimension(x, y, w, h) # " rx=\"" # Int.toText(rx) # "\" ry=\"" # Int.toText(ry) # "\" " # endStyle(s, emptyClose);
+            svg #= "<rect " # Util.dimension(x, y, w, h) # " rx=\"" # Int.toText(rx) # "\" ry=\"" # Int.toText(ry) # "\"" # endStyle(s, emptyClose);
         };
 
         // Def begins a defintion block.
@@ -183,7 +183,7 @@ module {
                 svg #= "<g>\n";
                 return;
             };
-            svg #= "<g " # endStyle(s, ">\n");
+            svg #= "<g" # endStyle(s, ">\n");
         };
 
         // Begins a group, with the specified style.
@@ -222,18 +222,18 @@ module {
         };
 
         public func image(x : Int, y : Int, w : Int, h : Int, link : Text, s : [Text]) {
-            svg #= "<image " # Util.dimension(x, y, w, h) # " " # Util.href(link) # " " # endStyle(s, emptyClose);
+            svg #= "<image " # Util.dimension(x, y, w, h) # " " # Util.href(link) # "" # endStyle(s, emptyClose);
         };
 
         // Constructs a linear color gradient identified by id, along the vector defined by (x1, y1), and (x2, y2).
         // Coordinates are expressed as percentages.
-        public func linearGradient(id : Text, coordinates : LinearGradientCoordinateSystem, stopColors : [OffsetColor]) {
+        public func linearGradient(id : Text, coordinates : LinearGradientCoordinateSystem, stopColors : [OffsetColor], s : [Text]) {
             switch (coordinates) {
                 case (#objectBoundingBox(x1, y1, x2, y2)) {
-                    svg #= "<linearGradient id=\"" # id # "\" x1=\"" # Nat8.toText(x1) # "%\" y1=\"" # Nat8.toText(y1) # "%\" x2=\"" # Nat8.toText(x2) # "%\" y2=\"" # Nat8.toText(y2) # "%\">\n";
+                    svg #= "<linearGradient id=\"" # id # "\" x1=\"" # Nat8.toText(x1) # "%\" y1=\"" # Nat8.toText(y1) # "%\" x2=\"" # Nat8.toText(x2) # "%\" y2=\"" # Nat8.toText(y2) # "%\"" # endStyle(s, ">\n");
                 };
                 case (#userSpaceOnUse(x1, y1, x2, y2)) {
-                    svg #= "<linearGradient id=\"" # id # "\" gradientUnits=\"userSpaceOnUse\" x1=\"" # Int.toText(x1) # "\" y1=\"" # Int.toText(y1) # "\" x2=\"" # Int.toText(x2) # "\" y2=\"" # Int.toText(y2) # "\">\n";
+                    svg #= "<linearGradient id=\"" # id # "\" gradientUnits=\"userSpaceOnUse\" x1=\"" # Int.toText(x1) # "\" y1=\"" # Int.toText(y1) # "\" x2=\"" # Int.toText(x2) # "\" y2=\"" # Int.toText(y2) # "\"" # endStyle(s, ">\n");
                 };
             };
             stopColor(stopColors);
@@ -243,13 +243,13 @@ module {
         // Constructs a radial color gradient identified by id, centered at (cx,cy), with a radius of r.
         // (fx, fy) define the location of the focal point of the light source.
         // Coordinates are expressed as percentages.
-        public func radialGradient(id : Text, coordinates : RadialGradientCoordinateSystem, stopColors : [OffsetColor]) {
+        public func radialGradient(id : Text, coordinates : RadialGradientCoordinateSystem, stopColors : [OffsetColor], s : [Text]) {
             switch (coordinates) {
                 case (#objectBoundingBox(cx, cy, r, fx, fy)) {
-                    svg #= "<radialGradient id=\"" # id # "\" cx=\"" # Nat8.toText(cx) # "%\" cy=\"" # Nat8.toText(cy) # "%\" r=\"" # Nat8.toText(r) # "%\" fx=\"" # Nat8.toText(fx) # "%\" fy=\"" # Nat8.toText(fy) # "%\">\n";
+                    svg #= "<radialGradient id=\"" # id # "\" cx=\"" # Nat8.toText(cx) # "%\" cy=\"" # Nat8.toText(cy) # "%\" r=\"" # Nat8.toText(r) # "%\" fx=\"" # Nat8.toText(fx) # "%\" fy=\"" # Nat8.toText(fy) # "%\"" # endStyle(s, ">\n");
                 };
                 case (#userSpaceOnUse(cx, cy, r, fx, fy)) {
-                    svg #= "<radialGradient id=\"" # id # "\" gradientUnits=\"userSpaceOnUse\" cx=\"" # Int.toText(cx) # "\" cy=\"" # Int.toText(cy) # "\" r=\"" # Int.toText(r) # "\" fx=\"" # Int.toText(fx) # "\" fy=\"" # Int.toText(fy) # "\">\n";
+                    svg #= "<radialGradient id=\"" # id # "\" gradientUnits=\"userSpaceOnUse\" cx=\"" # Int.toText(cx) # "\" cy=\"" # Int.toText(cy) # "\" r=\"" # Int.toText(r) # "\" fx=\"" # Int.toText(fx) # "\" fy=\"" # Int.toText(fy) # "\"" # endStyle(s, ">\n");
                 };
             };
             stopColor(stopColors);
@@ -271,7 +271,10 @@ module {
         // Generates end styles based on the given tag and styles.
         private func endStyle(ts : [Text], tag : Text) : Text {
             if (ts.size() == 0) return tag;
-            var e = "";
+            var e = switch (ts.size()) {
+                case (0) "";
+                case (_) " ";
+            };
             for (i in ts.keys()) {
                 let t = ts[i];
                 switch (indexEquals(t)) {

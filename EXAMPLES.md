@@ -60,6 +60,12 @@ View the code [here](./examples/gradient_radial.mo)
 
 View the code [here](./examples/image.mo)
 
+## logo
+
+![logo](./examples/logo.svg)
+
+View the code [here](./examples/logo.mo)
+
 ## path_arcs
 
 ![path_arcs](./examples/path_arcs.svg)

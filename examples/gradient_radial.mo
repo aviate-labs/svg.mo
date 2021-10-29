@@ -31,6 +31,7 @@ canvas.group([]);
                     opacity = 1;
                 },
             ],
+            [],
         );
     canvas.defsEnd();
 
